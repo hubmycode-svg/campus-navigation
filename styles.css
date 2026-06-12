@@ -1,0 +1,353 @@
+/* ==================================================
+                DARK GLASSMORPHISM THEME
+================================================== */
+
+:root{
+    --bg-primary:#050816;
+    --bg-secondary:#0f172a;
+    --glass:rgba(255,255,255,0.08);
+    --glass-border:rgba(255,255,255,0.12);
+
+    --text-primary:#ffffff;
+    --text-secondary:#94a3b8;
+
+    --accent:#00f5d4;
+    --accent2:#3a86ff;
+    --accent3:#8338ec;
+
+    --shadow:0 8px 32px rgba(0,0,0,.35);
+
+    --font-stack:'Poppins',sans-serif;
+}
+
+/* ==================================================
+                    RESET
+================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:var(--font-stack);
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+    radial-gradient(circle at top left,#0f3460 0%,transparent 40%),
+    radial-gradient(circle at bottom right,#3a0ca3 0%,transparent 40%),
+    var(--bg-primary);
+
+    color:var(--text-primary);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* ==================================================
+                FLOATING PARTICLES
+================================================== */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background:
+    radial-gradient(circle,rgba(255,255,255,.08) 2px,transparent 2px);
+
+    background-size:70px 70px;
+
+    opacity:.25;
+    pointer-events:none;
+    z-index:-1;
+}
+
+/* ==================================================
+                HAMBURGER BUTTON
+================================================== */
+
+.menu-btn{
+    position:fixed;
+    top:25px;
+    left:25px;
+
+    z-index:1001;
+
+    background:var(--glass);
+    backdrop-filter:blur(20px);
+
+    border:1px solid var(--glass-border);
+
+    padding:14px;
+    border-radius:15px;
+
+    cursor:pointer;
+
+    transition:.4s;
+}
+
+.menu-btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 20px rgba(0,245,212,.4);
+}
+
+.menu-btn span{
+    width:28px;
+    height:3px;
+
+    display:block;
+
+    background:white;
+
+    border-radius:20px;
+
+    margin:5px 0;
+}
+
+/* ==================================================
+                    SIDEBAR
+================================================== */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:320px;
+    height:100vh;
+
+    background:rgba(15,23,42,.85);
+
+    backdrop-filter:blur(25px);
+
+    border-right:1px solid rgba(255,255,255,.08);
+
+    padding:2rem;
+
+    display:flex;
+    flex-direction:column;
+    gap:2rem;
+
+    transform:translateX(-100%);
+
+    transition:.5s cubic-bezier(.77,0,.18,1);
+
+    z-index:1000;
+}
+
+.sidebar-toggle:checked ~ .sidebar{
+    transform:translateX(0);
+}
+
+.sidebar::before{
+    content:"";
+
+    position:absolute;
+    top:-150px;
+    right:-150px;
+
+    width:300px;
+    height:300px;
+
+    border-radius:50%;
+
+    background:rgba(0,245,212,.12);
+
+    filter:blur(40px);
+}
+
+/* ==================================================
+                    BRAND
+================================================== */
+
+.brand-section{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.logo-badge img{
+    width:60px;
+    height:60px;
+
+    border-radius:50%;
+
+    border:2px solid rgba(255,255,255,.2);
+
+    box-shadow:
+    0 0 20px rgba(0,245,212,.35);
+}
+
+.logo-text{
+    color:white;
+
+    font-size:1.2rem;
+    font-weight:700;
+
+    letter-spacing:.5px;
+}
+
+/* ==================================================
+                NAVIGATION
+================================================== */
+
+.nabar ul{
+    list-style:none;
+
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.nabar a{
+    text-decoration:none;
+
+    color:var(--text-secondary);
+
+    padding:14px 18px;
+
+    border-radius:14px;
+
+    display:block;
+
+    transition:.35s;
+}
+
+.nabar a:hover{
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    transform:translateX(8px);
+
+    box-shadow:
+    0 0 15px rgba(0,245,212,.25);
+}
+
+/* ==================================================
+                HERO SECTION
+================================================== */
+
+#hero{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:3rem;
+
+    background:
+    linear-gradient(
+        rgba(5,8,22,.75),
+        rgba(5,8,22,.75)
+    ),
+    url("images/uok-hero.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+.hero-title h1{
+
+    font-size:5rem;
+    font-weight:800;
+
+    background:
+    linear-gradient(
+        90deg,
+        #00f5d4,
+        #3a86ff,
+        #8338ec
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    text-shadow:
+    0 0 30px rgba(0,245,212,.35);
+
+    animation:glow 3s infinite alternate;
+}
+
+.hero-subtitle h2{
+
+    margin-top:1rem;
+
+    color:white;
+
+    font-size:2rem;
+    font-weight:500;
+}
+
+.hero-description p{
+
+    margin-top:1.5rem;
+
+    max-width:800px;
+
+    color:var(--text-secondary);
+
+    line-height:1.8;
+
+    font-size:1.1rem;
+}
+
+/* ==================================================
+                GLASS CARD
+================================================== */
+
+.glass-card{
+    background:var(--glass);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid var(--glass-border);
+
+    border-radius:20px;
+
+    box-shadow:var(--shadow);
+}
+
+/* ==================================================
+                ANIMATIONS
+================================================== */
+
+@keyframes glow{
+
+    from{
+        filter:drop-shadow(
+        0 0 10px rgba(0,245,212,.2));
+    }
+
+    to{
+        filter:drop-shadow(
+        0 0 25px rgba(0,245,212,.7));
+    }
+}
+
+/* ==================================================
+                RESPONSIVE
+================================================== */
+
+@media(max-width:768px){
+
+    .hero-title h1{
+        font-size:3rem;
+    }
+
+    .hero-subtitle h2{
+        font-size:1.3rem;
+    }
+
+    .sidebar{
+        width:280px;
+    }
+}
