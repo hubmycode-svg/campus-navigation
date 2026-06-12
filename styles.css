@@ -351,3 +351,39 @@ body::before{
         width:280px;
     }
 }
+
+/* hero buttons */
+
+.hero-buttons{
+    margin-top:2rem;
+    display:flex;
+    gap:1rem;
+    flex-wrap:wrap;
+}
+
+.btn-primary, .btn-secondary, .btn-tertiary{
+    padding:0.75rem 1.5rem;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+    background:
+    linear-gradient(
+        90deg,
+        #00f5d4,
+        #3a86ff,
+        #8338ec
+    );
+    transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-tertiary:hover{
+    transform:translateY(-3px);
+    box-shadow:
+    0 0 20px rgba(0,245,212,.4);
+    opacity:0.9;
+}
+.btn-primary:active, .btn-secondary:active, .btn-tertiary:active{
+    transform:translateY(1px);
+    box-shadow:none;
+}
