@@ -1,212 +1,315 @@
-// =========================
-// TAB SWITCHING
-// =========================
+/* =========================================
+   UOK CAMPUS NAVIGATOR - MAIN JS
+========================================= */
 
-const tabs = document.querySelectorAll(".tab");
-const sections = document.querySelectorAll(".section");
-
-tabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => {
-
-        tabs.forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
-
-        sections.forEach(section => {
-            section.classList.remove("active");
-            section.style.display = "none";
-        });
-
-        if (sections[index]) {
-            sections[index].classList.add("active");
-            sections[index].style.display = "block";
-        }
-    });
-});
-
-// =========================
-// FACILITY INFORMATION
-// =========================
+/* ─────────────────────────────
+   FACILITY DATA
+──────────────────────────── */
 
 const facilities = {
     library: {
-        title: "📚 University Library",
-        description: "The University Library provides books, journals, research databases, internet access, and study spaces for students."
+        icon: "📚",
+        name: "University Library",
+        cat: "Academic Resource Centre",
+        desc: "Main library with digital + print academic resources for all schools.",
+        hours: "Mon–Fri: 8:00 AM – 10:00 PM"
     },
-
-    administration: {
-        title: "🏛️ Administration Block",
-        description: "Contains the Vice Chancellor's office, Registrar, Finance offices, and student services."
+    admin: {
+        icon: "🏛️",
+        name: "Administration Block",
+        cat: "University Management",
+        desc: "VC office, registrar, finance, and student affairs services.",
+        hours: "Mon–Fri: 8:00 AM – 5:00 PM"
     },
-
     lecture: {
-        title: "🎓 Lecture Halls",
-        description: "Modern lecture rooms used for teaching and academic activities across all schools."
+        icon: "🎓",
+        name: "Lecture Halls",
+        cat: "Academic Teaching",
+        desc: "Lecture blocks A & B used for teaching and seminars.",
+        hours: "Mon–Sat: 7:00 AM – 9:00 PM"
     },
-
-    hostels: {
-        title: "🏠 Student Hostels",
-        description: "Accommodation facilities for students with water, security, and internet services."
-    },
-
-    cafeteria: {
-        title: "🍽️ Cafeteria",
-        description: "Provides affordable meals, snacks, tea, and refreshments to students and staff."
-    },
-
-    sports: {
-        title: "⚽ Sports Grounds",
-        description: "Football pitch, volleyball courts, athletics field, and other recreational facilities."
-    },
-
-    clinic: {
-        title: "🏥 Health Clinic",
-        description: "Offers medical services, consultations, first aid, and health support."
-    },
-
     ict: {
-        title: "💻 ICT Centre",
-        description: "Computer laboratories, internet access, software training, and technical support."
+        icon: "💻",
+        name: "ICT Centre",
+        cat: "Technology Hub",
+        desc: "Computer labs, internet access, e-learning systems.",
+        hours: "Mon–Fri: 7:00 AM – 10:00 PM"
+    },
+    agrilab: {
+        icon: "🌿",
+        name: "Agriculture Lab",
+        cat: "Research Facility",
+        desc: "Crop science, animal science and biotechnology labs.",
+        hours: "Mon–Fri: 8:00 AM – 5:00 PM"
+    },
+    clinic: {
+        icon: "🏥",
+        name: "Health Clinic",
+        cat: "Medical Services",
+        desc: "On-campus healthcare for students and staff.",
+        hours: "Mon–Fri: 8:00 AM – 5:00 PM"
+    },
+    hostel: {
+        icon: "🏠",
+        name: "Student Hostels",
+        cat: "Accommodation",
+        desc: "Secure on-campus student accommodation facilities.",
+        hours: "24/7 Residents"
+    },
+    cafeteria: {
+        icon: "🍽️",
+        name: "Cafeteria",
+        cat: "Dining Services",
+        desc: "Affordable meals and snacks for students and staff.",
+        hours: "6:30 AM – 9:00 PM"
+    },
+    sports: {
+        icon: "⚽",
+        name: "Sports Grounds",
+        cat: "Sports & Recreation",
+        desc: "Football, basketball, volleyball and athletics facilities.",
+        hours: "6:00 AM – 8:00 PM"
+    },
+    chapel: {
+        icon: "⛪",
+        name: "University Chapel",
+        cat: "Spiritual Life",
+        desc: "Worship and prayer services for all faiths.",
+        hours: "Daily"
+    },
+    farm: {
+        icon: "🍃",
+        name: "Tea Farm",
+        cat: "Research & Heritage",
+        desc: "Historic tea farm used for agricultural learning.",
+        hours: "Daytime access"
     }
 };
 
-const facilityCards = document.querySelectorAll(".facility-card");
-const infoPanel = document.querySelector(".info-panel");
 
-facilityCards.forEach(card => {
+/* =========================================
+   FACILITY DETAILS PANEL
+========================================= */
 
-    card.addEventListener("click", () => {
+function showFacility(id, event) {
 
-        facilityCards.forEach(c => c.classList.remove("selected"));
+    const f = facilities[id];
+    if (!f) return;
 
-        card.classList.add("selected");
+    document.querySelectorAll(".map-node")
+        .forEach(n => n.classList.remove("active"));
 
-        const name = card.querySelector(".fac-name").textContent;
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add("active");
+    }
 
-        let facilityKey = "";
+    const panel = document.getElementById("detail-panel");
 
-        if (name.includes("Library")) facilityKey = "library";
-        else if (name.includes("Administration")) facilityKey = "administration";
-        else if (name.includes("Lecture")) facilityKey = "lecture";
-        else if (name.includes("Hostels")) facilityKey = "hostels";
-        else if (name.includes("Cafeteria")) facilityKey = "cafeteria";
-        else if (name.includes("Sports")) facilityKey = "sports";
-        else if (name.includes("Health")) facilityKey = "clinic";
-        else if (name.includes("ICT")) facilityKey = "ict";
+    if (!panel) return;
 
-        const facility = facilities[facilityKey];
+    panel.innerHTML = `
+        <div class="detail-top">
+            <div class="detail-icon">${f.icon}</div>
+            <div class="detail-name">${f.name}</div>
+            <div class="detail-cat">${f.cat}</div>
+        </div>
 
-        if (facility) {
-            infoPanel.innerHTML = `
-                <h3>${facility.title}</h3>
-                <p>${facility.description}</p>
-            `;
-        }
-    });
-});
+        <div class="detail-body">
+            <p>${f.desc}</p>
 
-// =========================
-// CAMPUS BUTTONS
-// =========================
+            <div class="detail-hours">
+                ⏰ ${f.hours}
+            </div>
+        </div>
+    `;
+}
 
-const campusButtons = document.querySelectorAll(".ctab");
 
-campusButtons.forEach(button => {
-    button.addEventListener("click", () => {
+/* =========================================
+   CAMPUS SWITCHER
+========================================= */
 
-        campusButtons.forEach(btn =>
-            btn.classList.remove("active")
+function switchCampus(id, btn) {
+
+    document.querySelectorAll(".campus-panel")
+        .forEach(p => p.classList.remove("active"));
+
+    document.getElementById("panel-" + id)
+        .classList.add("active");
+
+    document.querySelectorAll(".ctab")
+        .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+}
+
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobile-menu");
+
+    if (!menu) return;
+
+    menu.style.display =
+        menu.style.display === "block" ? "none" : "block";
+}
+
+
+/* =========================================
+   CHAT SYSTEM (AI GUIDE)
+========================================= */
+
+function addMsg(text, cls) {
+
+    const box = document.getElementById("chat-msgs");
+
+    if (!box) return;
+
+    const el = document.createElement("div");
+
+    el.className = "msg " + cls;
+
+    el.textContent = text;
+
+    box.appendChild(el);
+
+    box.scrollTop = box.scrollHeight;
+
+    return el;
+}
+
+async function sendMsg() {
+
+    const input = document.getElementById("chat-input");
+
+    if (!input) return;
+
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    input.value = "";
+
+    addMsg(text, "msg-user");
+
+    const typing = addMsg("Typing...", "msg-bot");
+
+    // Simulated AI response (replace with API later)
+    setTimeout(() => {
+
+        typing.remove();
+
+        addMsg(
+            "Habari! I am your UoK AI Guide. Ask about admissions, courses, hostels or campus life.",
+            "msg-bot"
         );
 
-        button.classList.add("active");
-    });
-});
-
-// =========================
-// AI CHAT DEMO
-// =========================
-
-const sendBtn = document.querySelector(".send-btn");
-const chatInput = document.querySelector(".ai-footer input");
-const chatMessages = document.querySelector(".ai-messages");
-
-function addMessage(message, sender) {
-
-    const div = document.createElement("div");
-
-    div.classList.add("msg");
-    div.classList.add(sender);
-
-    div.textContent = message;
-
-    chatMessages.appendChild(div);
-
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 1200);
 }
 
-function botReply(userMessage) {
 
-    let reply = "Welcome to UOK Campus Navigator.";
+/* =========================================
+   QUICK PROMPTS
+========================================= */
 
-    const msg = userMessage.toLowerCase();
+function quickAsk(q) {
 
-    if (msg.includes("library")) {
-        reply = "The University Library is located near the Administration Block.";
-    }
+    const input = document.getElementById("chat-input");
 
-    else if (msg.includes("hostel")) {
-        reply = "Student hostels are located within the main campus.";
-    }
+    if (!input) return;
 
-    else if (msg.includes("admission")) {
-        reply = "Visit the Admissions Office or the UOK website for application procedures.";
-    }
+    input.value = q;
 
-    else if (msg.includes("school")) {
-        reply = "UOK has five schools offering various undergraduate and postgraduate programmes.";
-    }
-
-    else if (msg.includes("campus")) {
-        reply = "UOK has Main Campus, Kapkatet Campus, and Kericho Town Campus.";
-    }
-
-    addMessage(reply, "bot");
+    sendMsg();
 }
 
-if (sendBtn) {
 
-    sendBtn.addEventListener("click", () => {
+/* =========================================
+   HERO TYPING EFFECT
+========================================= */
 
-        const message = chatInput.value.trim();
+const heroText = "Explore the University of Kabianga Campus";
 
-        if (message === "") return;
+let i = 0;
 
-        addMessage(message, "user");
+function typeWriter() {
 
-        chatInput.value = "";
+    const el = document.getElementById("typing-title");
 
-        setTimeout(() => {
-            botReply(message);
-        }, 700);
-    });
+    if (!el) return;
 
-    chatInput.addEventListener("keypress", e => {
+    if (i < heroText.length) {
 
-        if (e.key === "Enter") {
-            sendBtn.click();
+        el.textContent += heroText.charAt(i);
+
+        i++;
+
+        setTimeout(typeWriter, 55);
+    }
+}
+
+window.addEventListener("load", typeWriter);
+
+
+/* =========================================
+   NAV ACTIVE SCROLL EFFECT
+========================================= */
+
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+const observer = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            navLinks.forEach(a => a.classList.remove("active"));
+
+            const link = document.querySelector(
+                `.nav-links a[href="#${entry.target.id}"]`
+            );
+
+            if (link) link.classList.add("active");
         }
     });
-}
 
-// =========================
-// PAGE LOAD ANIMATION
-// =========================
+}, { threshold: 0.4 });
 
-window.addEventListener("load", () => {
-
-    document.body.style.opacity = "0";
-
-    setTimeout(() => {
-        document.body.style.transition = "opacity 0.8s ease";
-        document.body.style.opacity = "1";
-    }, 100);
+sections.forEach(sec => observer.observe(sec));
+// sticky navbar shrink on scroll
+window.addEventListener("scroll", () => {
+  const nav = document.querySelector("nav");
+  if (window.scrollY > 50) {
+    nav.classList.add("shrink");
+  } else {
+    nav.classList.remove("shrink");
+  }
 });
+
+window.addEventListener("scroll", () => {
+  const bg = document.querySelector(".hero-bg");
+  if (bg) {
+    bg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.2}px)`;
+  }
+});
+
+function showTyping() {
+  const box = document.getElementById('chat-msgs');
+  const el = document.createElement('div');
+  el.className = 'msg msg-typing';
+
+  el.innerHTML = `
+    <div class="typing-dots">
+      <span></span><span></span><span></span>
+    </div>
+  `;
+
+  box.appendChild(el);
+  box.scrollTop = box.scrollHeight;
+  return el;
+}

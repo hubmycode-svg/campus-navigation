@@ -1,95 +1,739 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--================================================================
+                                META TAGS
+    =================================================================-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="UOK Campus Navigator - Explore the University of Kabianga campus facilities, schools, and departments with ease.">
-    <meta name="keywords" content="UOK, University of Kabianga, Campus Navigator, Schools, Departments, Facilities">
-    <meta name="author" content="UOK IT Department | Isaac Othieno">
-    <title>UOK Campus Navigator</title>
+    <meta name="keywords" content="UOK, Kabianga, Campus, AI, Navigator, University, Kapkatete, Town, Kericho">
 
+    <title>University of Kabianga — Campus Navigator</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon/favicon.uok.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tabler Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-    <!--=========================================================
-                    NAVBAR
-    ===========================================================-->
+<!-- ================================
+     GLASS 3D ANIMATED SIDEBAR
+================================== -->
 
-    <input type="checkbox" id="side-toggle" class="sidebar-toggle">
+<input type="checkbox" id="side-toggle" class="sidebar-toggle">
 
-    <label for="side-toggle" class="menu-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-    </label>
+<label for="side-toggle" class="menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+</label>
 
-    <nav class="sidebar">
+<div class="sidebar-overlay"></div>
 
-        <label for="side-toggle" class="close-btn">&times;</label>
+<nav class="sidebar-glass">
 
-        <div class="brand-section">
-            <div class="logo-badge">
-                <img src="images/badge.jpg" alt="UOK Badge">
+    <label for="side-toggle" class="close-btn">&times;</label>
+
+    <div class="brand-section">
+        <div class="logo-badge">
+            <img src="images/badge.jpg" alt="UOK Logo">
+        </div>
+
+        <div class="logo-text">
+            UOK Campus Navigator
+        </div>
+    </div>
+
+    <ul class="sidebar-links">
+        <li><a href="#hero">🏠 Home</a></li>
+        <li><a href="#about">ℹ About</a></li>
+        <li><a href="#schools">🎓 Schools</a></li>
+        <li><a href="#departments">🏢 Departments</a></li>
+        <li><a href="#facilities">📍 Facilities</a></li>
+        <li><a href="#campuses">🌍 Campuses</a></li>
+        <li><a href="#news">📰 News</a></li>
+        <li><a href="#contact">📞 Contact</a></li>
+    </ul>
+
+</nav>
+
+<!-- =====================================
+        STICKY NAVBAR
+====================================== -->
+
+<header class="top-navbar">
+
+    <div class="nav-container">
+
+        <a href="#" class="nav-brand">
+
+            <div class="nav-logo">
+                UOK
             </div>
 
-            <div class="logo-text">Campus Navigator</div>
+            <div>
+
+                <div class="nav-title">
+                    University of Kabianga
+                </div>
+
+                <div class="nav-subtitle">
+                    Campus Navigator
+                </div>
+
+            </div>
+
+        </a>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#navigator">
+                    Navigator
+                </a>
+            </li>
+
+            <li>
+                <a href="#schools">
+                    Schools
+                </a>
+            </li>
+
+            <li>
+                <a href="#campuses">
+                    Campuses
+                </a>
+            </li>
+
+            <li>
+                <a href="#ai-guide">
+                    AI Guide
+                </a>
+            </li>
+
+            <li>
+                <a href="#about">
+                    About
+                </a>
+            </li>
+
+            <li>
+                <a href="https://www.kabianga.ac.ke"
+                   target="_blank">
+                    Official Site
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</header>
+
+<!-- =====================================
+        HERO SECTION
+====================================== -->
+
+<section id="hero" class="hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-pattern"></div>
+
+    <div class="hero-content">
+
+        <div class="hero-eyebrow">
+
+            <i class="ti ti-map-pin"></i>
+
+            Kabianga, Kericho County, Kenya
+
         </div>
 
-        <div class="nabar">
-            <ul>
-                <li>
-                    <a href="#hero">Home</a>
-                </li>
-                <li>
-                    <a href="#about">About</a>
-                </li>
-                <li>
-                    <a href="#schools">Schools</a>
-                </li>
-                <li>
-                    <a href="#departments">Departments</a>
-                </li>
-                <li>
-                    <a href="#facilities">Facilities</a>
-                </li>
-                <li>
-                    <a href="#contact">Contact</a>
-                </li>
-                <li>
-                    <a href="#news">News</a>
-                </li>
-            </ul>
+        <h1 id="typing-title"></h1>
+
+        <p class="hero-desc">
+
+            Your interactive guide to the University
+            of Kabianga.
+
+            Explore schools, facilities, campuses,
+            admissions information and student life
+            through a modern AI-powered experience.
+
+        </p>
+
+        <div class="hero-actions">
+
+            <a href="#navigator" class="btn-primary">
+
+                <i class="ti ti-map-2"></i>
+
+                Open Navigator
+
+            </a>
+
+            <a href="#ai-guide" class="btn-outline">
+
+                <i class="ti ti-message-chatbot"></i>
+
+                Ask AI Guide
+
+            </a>
+
         </div>
 
-    </nav>
+    </div>
 
-    <!-- ========================================================
-                        HERO SECTION
-    ===========================================================-->
+    <div class="hero-stats">
 
-    <section id="hero">
-        <div class="hero-title">
-            <h1>UOK Campus Navigator</h1>
+        <div class="hero-stat">
+
+            <div class="hero-stat-num">
+                5
+            </div>
+
+            <div class="hero-stat-label">
+                Schools
+            </div>
+
         </div>
 
-        <div class="hero-subtitle">
-            <h2>Welcome to UOK</h2>
+        <div class="hero-stat">
+
+            <div class="hero-stat-num">
+                15
+            </div>
+
+            <div class="hero-stat-label">
+                Departments
+            </div>
+
         </div>
 
-        <div class="hero-description">
+        <div class="hero-stat">
+
+            <div class="hero-stat-num">
+                3
+            </div>
+
+            <div class="hero-stat-label">
+                Campuses
+            </div>
+
+        </div>
+
+        <div class="hero-stat">
+
+            <div class="hero-stat-num">
+                7000+
+            </div>
+
+            <div class="hero-stat-label">
+                Students
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================
+        CAMPUS NAVIGATOR SECTION
+====================================== -->
+
+<section id="navigator" class="section">
+
+    <div class="section-wrap">
+
+        <div class="section-header">
+
+            <div class="section-eyebrow">
+                Campus Navigator
+            </div>
+
+            <h2>
+                Find your way around UoK Main Campus
+            </h2>
+
             <p>
-                Explore the University of Kabianga campus facilities, schools, and departments with ease.
+                Click any building to view details,
+                opening hours, and services available.
             </p>
+
         </div>
 
-        <div class="hero-buttons">
-            <a href="#campus" class="btn-primary">Campus facilities</a>
-            <a href="#contact" class="btn-secondary">Schools</a>
-            <a href="#departments" class="btn-tertiary">Departments</a>
-        </div>
-    </section>
+        <div class="map-shell">
 
+            <!-- MAP -->
+            <div class="campus-map">
+
+                <div class="map-grid">
+
+                    <div class="map-node n-blue"
+                         onclick="showFacility('admin')">
+                        🏛️ Admin Block
+                    </div>
+
+                    <div class="map-node n-green"
+                         onclick="showFacility('library')">
+                        📚 Library
+                    </div>
+
+                    <div class="map-node n-amber"
+                         onclick="showFacility('lecture')">
+                        🎓 Lecture A
+                    </div>
+
+                    <div class="map-node n-amber"
+                         onclick="showFacility('lecture')">
+                        🏫 Lecture B
+                    </div>
+
+                    <div class="map-node n-purple"
+                         onclick="showFacility('ict')">
+                        💻 ICT Centre
+                    </div>
+
+                    <div class="map-node n-green"
+                         onclick="showFacility('agrilab')">
+                        🌿 Agri Lab
+                    </div>
+
+                    <div class="map-node n-red"
+                         onclick="showFacility('clinic')">
+                        🏥 Clinic
+                    </div>
+
+                    <div class="map-node n-rose"
+                         onclick="showFacility('hostel')">
+                        🏠 Hostels
+                    </div>
+
+                    <div class="map-node n-green"
+                         onclick="showFacility('sports')">
+                        ⚽ Sports
+                    </div>
+
+                    <div class="map-node n-amber"
+                         onclick="showFacility('cafeteria')">
+                        🍽️ Cafeteria
+                    </div>
+
+                    <div class="map-node n-blue"
+                         onclick="showFacility('chapel')">
+                        ⛪ Chapel
+                    </div>
+
+                    <div class="map-node n-green"
+                         onclick="showFacility('farm')">
+                        🍃 Tea Farm
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- DETAIL PANEL -->
+            <div class="detail-panel" id="detail-panel">
+
+                <p class="placeholder">
+                    Click a building to view details
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================
+        SCHOOLS SECTION
+====================================== -->
+
+<section id="schools" class="section">
+
+    <div class="section-wrap">
+
+        <div class="section-header">
+
+            <div class="section-eyebrow">
+                Academic Schools
+            </div>
+
+            <h2>
+                Five Schools, One University
+            </h2>
+
+            <p>
+                UoK offers diverse academic programmes
+                across five major schools.
+            </p>
+
+        </div>
+
+        <div class="schools-grid">
+
+            <div class="school-card">
+
+                <h3>
+                    School of Agriculture & Biotechnology
+                </h3>
+
+                <p>
+                    Focused on crop science, animal science,
+                    and biotechnology research.
+                </p>
+
+            </div>
+
+            <div class="school-card">
+
+                <h3>
+                    School of Science & Technology
+                </h3>
+
+                <p>
+                    Covers computing, physics, mathematics
+                    and ICT innovation.
+                </p>
+
+            </div>
+
+            <div class="school-card">
+
+                <h3>
+                    School of Business & Economics
+                </h3>
+
+                <p>
+                    Business, finance, accounting, and
+                    entrepreneurship programmes.
+                </p>
+
+            </div>
+
+            <div class="school-card">
+
+                <h3>
+                    School of Education & Social Sciences
+                </h3>
+
+                <p>
+                    Teacher training, sociology, psychology,
+                    and communication studies.
+                </p>
+
+            </div>
+
+            <div class="school-card">
+
+                <h3>
+                    School of Natural Resources &
+                    Environmental Management
+                </h3>
+
+                <p>
+                    Environmental science, forestry,
+                    and conservation studies.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================
+        CAMPUSES SECTION
+====================================== -->
+
+<section id="campuses" class="section">
+
+    <div class="section-wrap">
+
+        <div class="section-header">
+
+            <div class="section-eyebrow">
+                Our Campuses
+            </div>
+
+            <h2>
+                Three Campuses Across Kericho County
+            </h2>
+
+            <p>
+                UoK operates Main Campus, Kapkatet Campus,
+                and Kericho Town Campus.
+            </p>
+
+        </div>
+
+        <!-- TABS -->
+        <div class="campus-tabs">
+
+            <button class="ctab active"
+                    onclick="switchCampus('main',this)">
+                Main Campus
+            </button>
+
+            <button class="ctab"
+                    onclick="switchCampus('kapkatet',this)">
+                Kapkatet Campus
+            </button>
+
+            <button class="ctab"
+                    onclick="switchCampus('kericho',this)">
+                Kericho Town Campus
+            </button>
+
+        </div>
+
+        <!-- MAIN CAMPUS -->
+        <div id="panel-main" class="campus-panel active">
+
+            <div class="campus-card">
+
+                <h3>Main Campus — Kabianga</h3>
+
+                <p>
+                    The main campus hosts all schools,
+                    administration, ICT centre, library,
+                    hostels and sports facilities.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- KAPKATET -->
+        <div id="panel-kapkatet" class="campus-panel">
+
+            <div class="campus-card">
+
+                <h3>Kapkatet Campus</h3>
+
+                <p>
+                    Satellite campus serving eastern Kericho
+                    with selected academic programmes.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- KERICHO TOWN -->
+        <div id="panel-kericho" class="campus-panel">
+
+            <div class="campus-card">
+
+                <h3>Kericho Town Campus</h3>
+
+                <p>
+                    Evening and weekend programmes for
+                    working students and professionals.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================
+        AI GUIDE SECTION
+====================================== -->
+
+<section id="ai-guide" class="section">
+
+    <div class="section-wrap ai-wrapper">
+
+        <!-- LEFT SIDE -->
+        <div class="ai-intro">
+
+            <div class="section-eyebrow">
+                AI-Powered Guide
+            </div>
+
+            <h2>
+                Your Personal UoK Assistant
+            </h2>
+
+            <p>
+                Ask anything about admissions, courses,
+                fees, hostels, or campus life.
+            </p>
+
+            <div class="ai-features">
+
+                <div class="ai-feat">
+                    <strong>Admissions Help</strong>
+                    <span>Requirements & application process</span>
+                </div>
+
+                <div class="ai-feat">
+                    <strong>Campus Navigation</strong>
+                    <span>Find buildings and facilities</span>
+                </div>
+
+                <div class="ai-feat">
+                    <strong>Student Life</strong>
+                    <span>Hostels, clubs, and activities</span>
+                </div>
+
+                <div class="ai-feat">
+                    <strong>Research Info</strong>
+                    <span>Projects and innovation</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CHAT BOX -->
+        <div class="chat-box">
+
+            <div class="chat-header">
+
+                <div class="chat-avatar">🤖</div>
+
+                <div>
+                    <strong>UoK AI Guide</strong><br>
+                    <small>Online</small>
+                </div>
+
+            </div>
+
+            <div class="chat-msgs" id="chat-msgs">
+
+                <div class="msg msg-bot">
+                    Habari! Ask me anything about UoK 👋
+                </div>
+
+            </div>
+
+            <div class="chat-input-row">
+
+                <input type="text"
+                       id="chat-input"
+                       placeholder="Ask about UoK..."
+                       onkeydown="if(event.key==='Enter')sendMsg()">
+
+                <button onclick="sendMsg()">
+                    ➤
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================
+        ABOUT SECTION
+====================================== -->
+
+<section id="about" class="section about">
+
+    <div class="about-inner">
+
+        <div class="about-text">
+
+            <h2>
+                A Center of <span>Innovation</span> and Excellence
+            </h2>
+
+            <p>
+                University of Kabianga is a public university located in Kericho County, Kenya,
+                known for agriculture, science, and innovation-driven education.
+            </p>
+
+            <p>
+                Established in 2013 as a chartered university, it serves thousands of students
+                across five schools and three campuses.
+            </p>
+
+        </div>
+
+        <div class="about-milestones">
+
+            <div class="milestone">
+                <strong>1925</strong>
+                <span>Founded as agricultural training centre</span>
+            </div>
+
+            <div class="milestone">
+                <strong>2013</strong>
+                <span>Granted university charter</span>
+            </div>
+
+            <div class="milestone">
+                <strong>Today</strong>
+                <span>Over 7,000 students enrolled</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================
+        FOOTER
+====================================== -->
+
+<footer class="footer">
+
+    <div class="footer-inner">
+
+        <p>
+            © 2026 University of Kabianga Campus Navigator
+        </p>
+
+        <div class="footer-links">
+
+            <a href="https://www.kabianga.ac.ke" target="_blank">
+                Official Website
+            </a>
+
+            <a href="#ai-guide">
+                AI Guide
+            </a>
+
+            <a href="#navigator">
+                Navigator
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+<!--====================================
+            JAVASCRIPT
+=====================================-->
+<script src="script.js"></script>
 </body>
 </html>

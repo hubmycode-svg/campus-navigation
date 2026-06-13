@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University of Kabianga — Campus Navigator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f3ee;
+    color: #1c2b1e;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Color tokens ── */
+  :root {
+    --green-deep:   #0d3320;
+    --green-mid:    #1a5c38;
+    --green-bright: #2d8653;
+    --green-soft:   #e4f0e8;
+    --gold:         #c8922a;
+    --gold-light:   #f5e9d0;
+    --cream:        #f5f3ee;
+    --white:        #ffffff;
+    --text-main:    #1c2b1e;
+    --text-muted:   #5a7060;
+    --border:       rgba(28,43,30,0.12);
+    --shadow-sm:    0 1px 4px rgba(0,0,0,0.07);
+    --shadow-md:    0 4px 20px rgba(0,0,0,0.10);
+    --radius:       10px;
+    --radius-lg:    16px;
+  }
+
+  /* ── Navigation ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--green-deep);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .nav-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--green-deep);
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .nav-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .nav-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 1px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+  }
+  .nav-links i { font-size: 15px; }
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--green-deep);
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(13,51,32,0.92) 0%, rgba(26,92,56,0.75) 60%, rgba(45,134,83,0.6) 100%),
+      url('https://www.kabianga.ac.ke/images/slider/slide1.jpg') center/cover no-repeat;
+  }
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: repeating-linear-gradient(
+      45deg,
+      #fff 0, #fff 1px,
+      transparent 0, transparent 50%
+    );
+    background-size: 20px 20px;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    padding: 5rem 2rem 4rem;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(200,146,42,0.2);
+    border: 1px solid rgba(200,146,42,0.4);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #e8b96a;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .hero-eyebrow i { font-size: 13px; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .hero h1 span { color: #e8b96a; }
+  .hero-desc {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    max-width: 540px;
+    margin-bottom: 2rem;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--gold);
+    color: var(--green-deep);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 22px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { background: #d9a030; transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: transparent;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 11px 22px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.35);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+  .hero-stats {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    gap: 0;
+    z-index: 1;
+  }
+  .hero-stat {
+    background: rgba(13,51,32,0.85);
+    backdrop-filter: blur(6px);
+    border-left: 1px solid rgba(255,255,255,0.08);
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    min-width: 100px;
+  }
+  .hero-stat-num {
+    font-size: 26px;
+    font-weight: 600;
+    color: #e8b96a;
+    font-family: 'Playfair Display', serif;
+  }
+  .hero-stat-lbl {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Section wrapper ── */
+  .section-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    margin-bottom: 8px;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.25;
+  }
+  .section-header p {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  /* ── Campus Map / Navigator ── */
+  #navigator { background: var(--cream); }
+  .map-shell {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .campus-map {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1.25rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 110px);
+    gap: 8px;
+  }
+  .map-node {
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+    text-align: center;
+    padding: 8px;
+  }
+  .map-node:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .map-node.active { border-color: var(--gold) !important; box-shadow: 0 0 0 3px rgba(200,146,42,0.2); }
+  .map-node .node-icon { font-size: 22px; line-height: 1; }
+  .map-node .node-name { font-size: 11px; font-weight: 500; line-height: 1.2; }
+  /* color variants */
+  .n-green  { background: #e4f0e8; }
+  .n-green .node-name { color: #0d3320; }
+  .n-blue   { background: #ddeaf7; }
+  .n-blue .node-name { color: #0d3260; }
+  .n-amber  { background: #f5e9d0; }
+  .n-amber .node-name { color: #6b4a0b; }
+  .n-purple { background: #edeafc; }
+  .n-purple .node-name { color: #3d2a8a; }
+  .n-rose   { background: #fce8ef; }
+  .n-rose .node-name { color: #7a1a38; }
+  .n-red    { background: #fce8e8; }
+  .n-red .node-name { color: #7a1a1a; }
+
+  /* map road paths */
+  .map-road {
+    grid-column: 1 / -1;
+    background: #d8ddd9;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #7a887c;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .detail-panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 80px;
+  }
+  .detail-top {
+    background: var(--green-mid);
+    padding: 1.25rem;
+    color: #fff;
+  }
+  .detail-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+  .detail-name { font-size: 16px; font-weight: 600; }
+  .detail-cat { font-size: 12px; opacity: 0.65; margin-top: 2px; }
+  .detail-body { padding: 1.25rem; }
+  .detail-body p { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+  .detail-hours {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--green-soft);
+    border-radius: var(--radius);
+    padding: 8px 10px;
+    margin-bottom: 1rem;
+  }
+  .detail-hours i { color: var(--green-bright); margin-top: 1px; flex-shrink: 0; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--gold-light);
+    color: #6b4a0b;
+    font-weight: 500;
+  }
+  .detail-placeholder {
+    padding: 2rem 1.25rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+  .detail-placeholder i { font-size: 32px; display: block; margin-bottom: 8px; opacity: 0.3; }
+
+  /* ── Schools ── */
+  #schools { background: #fff; }
+  .schools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  .school-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    transition: box-shadow 0.15s, transform 0.12s;
+  }
+  .school-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .school-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .school-pip {
+    width: 4px;
+    height: 42px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .school-name { font-size: 14px; font-weight: 600; color: var(--text-main); line-height: 1.3; }
+  .school-desc { font-size: 12px; color: var(--text-muted); line-height: 1.55; margin-bottom: 10px; }
+  .dept-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .dept-chip {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 12px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  /* ── Campuses ── */
+  #campuses { background: var(--cream); }
+  .campus-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .ctab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.15s;
+  }
+  .ctab:hover { border-color: var(--green-bright); color: var(--green-mid); }
+  .ctab.active {
+    background: var(--green-mid);
+    border-color: var(--green-mid);
+    color: #fff;
+  }
+  .campus-panel { display: none; }
+  .campus-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .campus-info-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .campus-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: var(--green-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+  }
+  .campus-img img { width: 100%; height: 100%; object-fit: cover; }
+  .campus-body { padding: 1.25rem; }
+  .campus-body h3 { font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
+  .campus-body p { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 10px; }
+  .campus-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+  .campus-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 14px;
+    background: var(--green-soft);
+    color: var(--green-mid);
+    font-weight: 500;
+  }
+  .map-embed {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+  }
+  .map-embed iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    border: none;
+    display: block;
+  }
+  .map-fallback {
+    width: 100%;
+    min-height: 300px;
+    background: var(--green-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--green-mid);
+    font-size: 13px;
+    text-align: center;
+    padding: 1rem;
+  }
+  .map-fallback i { font-size: 36px; opacity: 0.5; }
+  .map-fallback a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    background: var(--green-mid);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: var(--radius);
+    text-decoration: none;
+    margin-top: 4px;
+  }
+
+  /* ── AI Guide ── */
+  #ai-guide { background: #fff; }
+  .ai-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 2rem;
+    align-items: start;
+  }
+  .ai-intro h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .ai-intro p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .ai-features { display: flex; flex-direction: column; gap: 10px; margin-top: 1.5rem; }
+  .ai-feat {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--cream);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .ai-feat-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--green-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--green-mid);
+    font-size: 16px;
+  }
+  .ai-feat-text strong { font-size: 13px; display: block; color: var(--text-main); font-weight: 600; }
+  .ai-feat-text span { font-size: 12px; color: var(--text-muted); }
+
+  .chat-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 80px;
+  }
+  .chat-header {
+    background: var(--green-deep);
+    color: #fff;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chat-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-deep);
+    font-size: 16px;
+  }
+  .chat-header-text strong { font-size: 13px; display: block; }
+  .chat-header-text span { font-size: 11px; opacity: 0.6; }
+  .online-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .chat-msgs {
+    height: 300px;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--white);
+  }
+  .chat-msgs::-webkit-scrollbar { width: 4px; }
+  .chat-msgs::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+  .msg {
+    max-width: 88%;
+    padding: 9px 13px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .msg-bot {
+    background: var(--cream);
+    color: var(--text-main);
+    align-self: flex-start;
+    border-radius: 4px 12px 12px 12px;
+    border: 1px solid var(--border);
+  }
+  .msg-user {
+    background: var(--green-mid);
+    color: #fff;
+    align-self: flex-end;
+    border-radius: 12px 4px 12px 12px;
+  }
+  .msg-typing {
+    background: var(--cream);
+    color: var(--text-muted);
+    align-self: flex-start;
+    border-radius: 4px 12px 12px 12px;
+    border: 1px solid var(--border);
+    font-style: italic;
+    font-size: 12px;
+  }
+  .quick-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .qp {
+    font-size: 11px;
+    padding: 4px 11px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.12s, color 0.12s;
+  }
+  .qp:hover { border-color: var(--green-bright); color: var(--green-mid); }
+  .chat-input-row {
+    display: flex;
+    gap: 6px;
+    padding: 10px 12px;
+    border-top: 1px solid var(--border);
+    background: var(--white);
+  }
+  .chat-input {
+    flex: 1;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .chat-input:focus { border-color: var(--green-bright); }
+  .chat-send {
+    width: 38px;
+    height: 38px;
+    background: var(--green-mid);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .chat-send:hover { background: var(--green-deep); }
+
+  /* ── About strip ── */
+  #about {
+    background: var(--green-deep);
+    color: #fff;
+    padding: 4rem 1.5rem;
+  }
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .about-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .about-text h2 span { color: #e8b96a; }
+  .about-text p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  .about-links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .about-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #e8b96a;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .about-links a:hover { opacity: 0.75; }
+  .about-milestones { display: flex; flex-direction: column; gap: 14px; }
+  .milestone {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.05);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .mile-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #e8b96a;
+    flex-shrink: 0;
+    min-width: 50px;
+  }
+  .mile-text strong { font-size: 13px; color: #fff; display: block; font-weight: 600; }
+  .mile-text span { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+  /* ── Footer ── */
+  footer {
+    background: #080f09;
+    color: rgba(255,255,255,0.5);
+    padding: 2rem 1.5rem;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-size: 12px;
+  }
+  .footer-inner a { color: rgba(255,255,255,0.55); text-decoration: none; }
+  .footer-inner a:hover { color: #fff; }
+  .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .map-shell { grid-template-columns: 1fr; }
+    .campus-panel.active { grid-template-columns: 1fr; }
+    .ai-wrapper { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { display: none; }
+    .detail-panel { position: static; }
+    .chat-box { position: static; }
+  }
+  @media (max-width: 640px) {
+    .map-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+    nav { padding: 0 1rem; }
+    .hero-content { padding: 3rem 1rem 5rem; }
+    .section-wrap { padding: 2.5rem 1rem; }
+    .schools-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav aria-label="Main navigation">
+  <a class="nav-brand" href="#">
+    <div class="nav-logo">UoK</div>
+    <div>
+      <div class="nav-title">University of Kabianga</div>
+      <div class="nav-sub">Campus Navigator</div>
+    </div>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#navigator" class="active"><i class="ti ti-map-2" aria-hidden="true"></i> Navigator</a></li>
+    <li><a href="#schools"><i class="ti ti-school" aria-hidden="true"></i> Schools</a></li>
+    <li><a href="#campuses"><i class="ti ti-building" aria-hidden="true"></i> Campuses</a></li>
+    <li><a href="#ai-guide"><i class="ti ti-message-chatbot" aria-hidden="true"></i> AI Guide</a></li>
+    <li><a href="#about"><i class="ti ti-info-circle" aria-hidden="true"></i> About</a></li>
+    <li><a href="https://www.kabianga.ac.ke" target="_blank" rel="noopener"><i class="ti ti-external-link" aria-hidden="true"></i> Official Site</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+    <i class="ti ti-menu-2" aria-hidden="true"></i>
+  </button>
+</nav>
+
+<!-- ── Mobile nav menu (hidden by default) ── -->
+<div id="mobile-menu" style="display:none;background:var(--green-deep);padding:0.5rem 1rem 1rem">
+  <a href="#navigator" style="display:block;color:rgba(255,255,255,0.8);padding:10px 0;font-size:14px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)" onclick="toggleMenu()">Navigator</a>
+  <a href="#schools" style="display:block;color:rgba(255,255,255,0.8);padding:10px 0;font-size:14px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)" onclick="toggleMenu()">Schools</a>
+  <a href="#campuses" style="display:block;color:rgba(255,255,255,0.8);padding:10px 0;font-size:14px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)" onclick="toggleMenu()">Campuses</a>
+  <a href="#ai-guide" style="display:block;color:rgba(255,255,255,0.8);padding:10px 0;font-size:14px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.08)" onclick="toggleMenu()">AI Guide</a>
+  <a href="https://www.kabianga.ac.ke" style="display:block;color:#e8b96a;padding:10px 0;font-size:14px;text-decoration:none" target="_blank" rel="noopener">Official UoK Website ↗</a>
+</div>
+
+<!-- ── Hero ── -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-bg" role="img" aria-label="University of Kabianga campus aerial view"></div>
+  <div class="hero-pattern" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" aria-hidden="true">
+      <i class="ti ti-map-pin"></i> Kabianga, Kericho County, Kenya
+    </div>
+    <h1 id="hero-heading">
+      Explore the<br><span>University of Kabianga</span><br>Campus
+    </h1>
+    <p class="hero-desc">
+      Your interactive guide to UoK's facilities, schools, and campuses — powered by AI. Navigate buildings, discover programmes, and get instant answers about student life.
+    </p>
+    <div class="hero-actions">
+      <a href="#navigator" class="btn-primary">
+        <i class="ti ti-map-2" aria-hidden="true"></i> Open Navigator
+      </a>
+      <a href="#ai-guide" class="btn-outline">
+        <i class="ti ti-message-chatbot" aria-hidden="true"></i> Ask the AI Guide
+      </a>
+    </div>
+  </div>
+  <div class="hero-stats" aria-label="University statistics">
+    <div class="hero-stat">
+      <div class="hero-stat-num">5</div>
+      <div class="hero-stat-lbl">Schools</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">15</div>
+      <div class="hero-stat-lbl">Departments</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-lbl">Campuses</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7K+</div>
+      <div class="hero-stat-lbl">Students</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Campus Navigator ── -->
+<section id="navigator" aria-labelledby="nav-heading">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Campus Navigator</div>
+      <h2 id="nav-heading">Find your way around Main Campus</h2>
+      <p>Click any building or facility on the map to see details, directions, and opening hours.</p>
+    </div>
+    <div class="map-shell">
+      <div class="campus-map">
+        <div class="map-legend" aria-label="Map legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#2d8653"></div> Academic</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#185fa5"></div> Admin & Services</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#c8922a"></div> Student Life</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#7f77dd"></div> Technology</div>
+        </div>
+        <div class="map-grid" role="list" aria-label="Campus buildings">
+          <div class="map-node n-blue" role="listitem" tabindex="0" onclick="showFacility('admin')" onkeydown="if(event.key==='Enter')showFacility('admin')" aria-label="Administration Block">
+            <span class="node-icon" aria-hidden="true">🏛️</span>
+            <span class="node-name">Admin Block</span>
+          </div>
+          <div class="map-node n-green" role="listitem" tabindex="0" onclick="showFacility('library')" onkeydown="if(event.key==='Enter')showFacility('library')" aria-label="University Library">
+            <span class="node-icon" aria-hidden="true">📚</span>
+            <span class="node-name">Library</span>
+          </div>
+          <div class="map-node n-amber" role="listitem" tabindex="0" onclick="showFacility('lecture')" onkeydown="if(event.key==='Enter')showFacility('lecture')" aria-label="Lecture Halls Block A">
+            <span class="node-icon" aria-hidden="true">🎓</span>
+            <span class="node-name">Lecture Block A</span>
+          </div>
+          <div class="map-node n-amber" role="listitem" tabindex="0" onclick="showFacility('lecture')" onkeydown="if(event.key==='Enter')showFacility('lecture')" aria-label="Lecture Halls Block B">
+            <span class="node-icon" aria-hidden="true">🏫</span>
+            <span class="node-name">Lecture Block B</span>
+          </div>
+
+          <div class="map-road" aria-label="Main campus road" style="grid-column:1/-1;height:22px">
+            ── Main Campus Road ──
+          </div>
+
+          <div class="map-node n-purple" role="listitem" tabindex="0" onclick="showFacility('ict')" onkeydown="if(event.key==='Enter')showFacility('ict')" aria-label="ICT Centre">
+            <span class="node-icon" aria-hidden="true">💻</span>
+            <span class="node-name">ICT Centre</span>
+          </div>
+          <div class="map-node n-green" role="listitem" tabindex="0" onclick="showFacility('agrilab')" onkeydown="if(event.key==='Enter')showFacility('agrilab')" aria-label="Agriculture Lab">
+            <span class="node-icon" aria-hidden="true">🌿</span>
+            <span class="node-name">Agri Lab</span>
+          </div>
+          <div class="map-node n-red" role="listitem" tabindex="0" onclick="showFacility('clinic')" onkeydown="if(event.key==='Enter')showFacility('clinic')" aria-label="Health Clinic">
+            <span class="node-icon" aria-hidden="true">🏥</span>
+            <span class="node-name">Health Clinic</span>
+          </div>
+          <div class="map-node n-rose" role="listitem" tabindex="0" onclick="showFacility('hostel')" onkeydown="if(event.key==='Enter')showFacility('hostel')" aria-label="Student Hostels">
+            <span class="node-icon" aria-hidden="true">🏠</span>
+            <span class="node-name">Hostels</span>
+          </div>
+
+          <div class="map-node n-green" role="listitem" tabindex="0" onclick="showFacility('sports')" onkeydown="if(event.key==='Enter')showFacility('sports')" aria-label="Sports Ground">
+            <span class="node-icon" aria-hidden="true">⚽</span>
+            <span class="node-name">Sports Ground</span>
+          </div>
+          <div class="map-node n-amber" role="listitem" tabindex="0" onclick="showFacility('cafeteria')" onkeydown="if(event.key==='Enter')showFacility('cafeteria')" aria-label="Cafeteria">
+            <span class="node-icon" aria-hidden="true">🍽️</span>
+            <span class="node-name">Cafeteria</span>
+          </div>
+          <div class="map-node n-blue" role="listitem" tabindex="0" onclick="showFacility('chapel')" onkeydown="if(event.key==='Enter')showFacility('chapel')" aria-label="Chapel">
+            <span class="node-icon" aria-hidden="true">⛪</span>
+            <span class="node-name">Chapel</span>
+          </div>
+          <div class="map-node n-green" role="listitem" tabindex="0" onclick="showFacility('farm')" onkeydown="if(event.key==='Enter')showFacility('farm')" aria-label="Tea Farm">
+            <span class="node-icon" aria-hidden="true">🍃</span>
+            <span class="node-name">Tea Farm</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-panel" id="detail-panel">
+        <div class="detail-placeholder">
+          <i class="ti ti-map-pin" aria-hidden="true"></i>
+          <strong style="display:block;font-size:14px;color:var(--text-main);margin-bottom:6px">Select a facility</strong>
+          Tap any building on the campus map to see details, opening hours, and what's available there.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Schools ── -->
+<section id="schools" aria-labelledby="schools-heading">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Academic Schools</div>
+      <h2 id="schools-heading">Five schools, one vision</h2>
+      <p>University of Kabianga offers programmes across five schools with 15 departments, combining rigorous academics with practical, community-focused learning.</p>
+    </div>
+    <div class="schools-grid">
+      <article class="school-card">
+        <div class="school-top">
+          <div class="school-pip" style="background:#2d8653"></div>
+          <div class="school-name">School of Agriculture &amp; Biotechnology</div>
+        </div>
+        <p class="school-desc">Specializes in crop science, animal science, and applied biotechnology for sustainable agriculture in Kenya's highlands. Home to research farms and greenhouses.</p>
+        <div class="dept-chips">
+          <span class="dept-chip">Crop Science</span>
+          <span class="dept-chip">Animal Science</span>
+          <span class="dept-chip">Agricultural Economics</span>
+          <span class="dept-chip">Biotechnology</span>
+        </div>
+      </article>
+      <article class="school-card">
+        <div class="school-top">
+          <div class="school-pip" style="background:#185fa5"></div>
+          <div class="school-name">School of Science &amp; Technology</div>
+        </div>
+        <p class="school-desc">Covers computing, mathematics, physics, and applied sciences with modern ICT laboratories and a strong emphasis on research and innovation.</p>
+        <div class="dept-chips">
+          <span class="dept-chip">Computer Science</span>
+          <span class="dept-chip">Mathematics</span>
+          <span class="dept-chip">Physics &amp; Electronics</span>
+          <span class="dept-chip">Chemistry</span>
+        </div>
+      </article>
+      <article class="school-card">
+        <div class="school-top">
+          <div class="school-pip" style="background:#c8922a"></div>
+          <div class="school-name">School of Business &amp; Economics</div>
+        </div>
+        <p class="school-desc">Trains future business leaders, accountants, and economists for East Africa's growing economy through case-based learning and industry partnerships.</p>
+        <div class="dept-chips">
+          <span class="dept-chip">Business Administration</span>
+          <span class="dept-chip">Accounting &amp; Finance</span>
+          <span class="dept-chip">Economics</span>
+          <span class="dept-chip">Marketing</span>
+        </div>
+      </article>
+      <article class="school-card">
+        <div class="school-top">
+          <div class="school-pip" style="background:#7f77dd"></div>
+          <div class="school-name">School of Education &amp; Social Sciences</div>
+        </div>
+        <p class="school-desc">Prepares educators, sociologists, and development workers for Kenya's communities, with teacher training programmes recognised by the TSC.</p>
+        <div class="dept-chips">
+          <span class="dept-chip">Education</span>
+          <span class="dept-chip">Sociology</span>
+          <span class="dept-chip">Psychology</span>
+          <span class="dept-chip">Communication</span>
+        </div>
+      </article>
+      <article class="school-card" style="grid-column: span 1;">
+        <div class="school-top">
+          <div class="school-pip" style="background:#639922"></div>
+          <div class="school-name">School of Natural Resources &amp; Environmental Management</div>
+        </div>
+        <p class="school-desc">Focuses on ecology, forestry, and environmental conservation, benefiting from the rich Kericho ecosystem including the nearby tea-growing highlands and forests.</p>
+        <div class="dept-chips">
+          <span class="dept-chip">Forestry</span>
+          <span class="dept-chip">Wildlife Management</span>
+          <span class="dept-chip">Environmental Science</span>
+          <span class="dept-chip">Geography</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── Campuses ── -->
+<section id="campuses" aria-labelledby="campuses-heading">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Our Campuses</div>
+      <h2 id="campuses-heading">Three campuses across Kericho County</h2>
+      <p>UoK serves students from across the South Rift through its Main Campus and two satellite campuses.</p>
+    </div>
+    <div class="campus-tabs" role="tablist" aria-label="Campus selection">
+      <button class="ctab active" role="tab" aria-selected="true" aria-controls="panel-main" onclick="switchCampus('main',this)">
+        <i class="ti ti-home" aria-hidden="true"></i> Main Campus
+      </button>
+      <button class="ctab" role="tab" aria-selected="false" aria-controls="panel-kapkatet" onclick="switchCampus('kapkatet',this)">
+        <i class="ti ti-building-community" aria-hidden="true"></i> Kapkatet Campus
+      </button>
+      <button class="ctab" role="tab" aria-selected="false" aria-controls="panel-kericho" onclick="switchCampus('kericho',this)">
+        <i class="ti ti-building-skyscraper" aria-hidden="true"></i> Kericho Town Campus
+      </button>
+    </div>
+
+    <div id="panel-main" class="campus-panel active" role="tabpanel">
+      <div class="campus-info-card">
+        <div class="campus-img">
+          <img src="https://www.kabianga.ac.ke/images/slider/slide1.jpg"
+               alt="University of Kabianga Main Campus"
+               onerror="this.parentElement.innerHTML='<span style=font-size:56px>🏫</span>'">
+        </div>
+        <div class="campus-body">
+          <h3>Main Campus — Kabianga</h3>
+          <p>Located in the scenic Kabianga complex within Kericho County (0°26'45"S, 35°08'17"E), the main campus is UoK's beating heart. It sits alongside Kabianga Boys High School and the historic Kabianga Tea Farm in the lush tea-growing highlands.</p>
+          <p>All five schools, the main library, administration offices, ICT centre, student hostels, the health clinic, and sports facilities are found here.</p>
+          <div class="campus-badges">
+            <span class="campus-badge">Kericho County</span>
+            <span class="campus-badge">7,000+ students</span>
+            <span class="campus-badge">ISO 9001:2015</span>
+            <span class="campus-badge">Est. 2013</span>
+          </div>
+        </div>
+      </div>
+      <div class="map-embed">
+        <div class="map-fallback">
+          <i class="ti ti-map-pin" aria-hidden="true"></i>
+          <strong style="color:var(--green-mid);font-size:14px">Main Campus Location</strong>
+          <span>Kabianga, Kericho County, Kenya<br>0°26'45"S &nbsp;35°08'17"E</span>
+          <a href="https://maps.google.com/?q=University+of+Kabianga,Kericho+Kenya" target="_blank" rel="noopener">
+            <i class="ti ti-external-link" aria-hidden="true"></i> Open in Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-kapkatet" class="campus-panel" role="tabpanel">
+      <div class="campus-info-card">
+        <div class="campus-img" style="background:#e4f0e8;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:56px">🌄</span>
+        </div>
+        <div class="campus-body">
+          <h3>Kapkatet Campus</h3>
+          <p>Kapkatet satellite campus serves students in the eastern parts of Kericho County. It offers selected undergraduate programmes and is closely linked to the main campus for academic coordination.</p>
+          <p>The campus was personally addressed by the Vice-Chancellor and continues to expand its programme offerings for students in the Bureti sub-county area.</p>
+          <div class="campus-badges">
+            <span class="campus-badge">Kericho East</span>
+            <span class="campus-badge">Satellite campus</span>
+            <span class="campus-badge">Select programmes</span>
+          </div>
+        </div>
+      </div>
+      <div class="map-embed">
+        <div class="map-fallback">
+          <i class="ti ti-map-pin" aria-hidden="true"></i>
+          <strong style="color:var(--green-mid);font-size:14px">Kapkatet Campus</strong>
+          <span>Kapkatet, Kericho County, Kenya</span>
+          <a href="https://maps.google.com/?q=Kapkatet+Kericho+Kenya" target="_blank" rel="noopener">
+            <i class="ti ti-external-link" aria-hidden="true"></i> Open in Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-kericho" class="campus-panel" role="tabpanel">
+      <div class="campus-info-card">
+        <div class="campus-img" style="background:#ddeaf7;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:56px">🏙️</span>
+        </div>
+        <div class="campus-body">
+          <h3>Kericho Town Campus</h3>
+          <p>Situated in Kericho's central business district, the town campus makes higher education accessible for working professionals and part-time learners throughout the region.</p>
+          <p>This campus primarily runs evening and weekend programmes, serving the needs of professionals seeking to advance their qualifications without disrupting their careers.</p>
+          <div class="campus-badges">
+            <span class="campus-badge">Town centre</span>
+            <span class="campus-badge">Working professionals</span>
+            <span class="campus-badge">Evening classes</span>
+            <span class="campus-badge">Accessible</span>
+          </div>
+        </div>
+      </div>
+      <div class="map-embed">
+        <div class="map-fallback">
+          <i class="ti ti-map-pin" aria-hidden="true"></i>
+          <strong style="color:var(--green-mid);font-size:14px">Kericho Town Campus</strong>
+          <span>Kericho CBD, Kericho County, Kenya</span>
+          <a href="https://maps.google.com/?q=Kericho+CBD+Kenya" target="_blank" rel="noopener">
+            <i class="ti ti-external-link" aria-hidden="true"></i> Open in Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AI Guide ── -->
+<section id="ai-guide" aria-labelledby="ai-heading">
+  <div class="section-wrap">
+    <div class="ai-wrapper">
+      <div class="ai-intro">
+        <div class="section-eyebrow">AI-Powered Guide</div>
+        <h3 id="ai-heading">Your personal UoK campus assistant</h3>
+        <p>Ask anything about University of Kabianga — from admission requirements and available programmes to hostel fees, campus facilities, and student life. Available 24/7.</p>
+        <div class="ai-features">
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
+            <div class="ai-feat-text">
+              <strong>Admissions &amp; Programmes</strong>
+              <span>Get clear guidance on how to apply, KCSE requirements, and available courses</span>
+            </div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><i class="ti ti-map-2" aria-hidden="true"></i></div>
+            <div class="ai-feat-text">
+              <strong>Campus Navigation</strong>
+              <span>Find buildings, offices, labs, and facilities on any of the three campuses</span>
+            </div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+            <div class="ai-feat-text">
+              <strong>Student Life</strong>
+              <span>Learn about hostels, clubs, sports, health services, and campus culture</span>
+            </div>
+          </div>
+          <div class="ai-feat">
+            <div class="ai-feat-icon"><i class="ti ti-flask" aria-hidden="true"></i></div>
+            <div class="ai-feat-text">
+              <strong>Research &amp; Innovation</strong>
+              <span>Discover UoK's research projects, partnerships, and innovation initiatives</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-box" aria-label="AI Campus Guide chatbot">
+        <div class="chat-header">
+          <div class="chat-avatar"><i class="ti ti-message-chatbot" aria-hidden="true"></i></div>
+          <div class="chat-header-text">
+            <strong>UoK AI Guide</strong>
+            <span>Powered by Claude AI</span>
+          </div>
+          <div class="online-dot" aria-label="Online" title="Online"></div>
+        </div>
+        <div class="chat-msgs" id="chat-msgs" aria-live="polite" aria-label="Chat messages">
+          <div class="msg msg-bot">👋 Habari! I'm your University of Kabianga AI guide. Ask me anything about UoK — admissions, schools, facilities, programmes, or campus life!</div>
+        </div>
+        <div class="quick-prompts" aria-label="Quick questions">
+          <button class="qp" onclick="quickAsk('How do I apply for admission at UoK?')">How to apply?</button>
+          <button class="qp" onclick="quickAsk('What undergraduate programmes does UoK offer?')">Programmes</button>
+          <button class="qp" onclick="quickAsk('Tell me about student hostels and fees')">Hostels &amp; fees</button>
+          <button class="qp" onclick="quickAsk('What research is done at University of Kabianga?')">Research</button>
+          <button class="qp" onclick="quickAsk('Where is the University of Kabianga located?')">Location</button>
+        </div>
+        <div class="chat-input-row">
+          <label for="chat-input" class="sr-only">Type your question about UoK</label>
+          <input class="chat-input" id="chat-input" type="text" placeholder="Ask about UoK..." autocomplete="off" onkeydown="if(event.key==='Enter')sendMsg()">
+          <button class="chat-send" onclick="sendMsg()" aria-label="Send message">
+            <i class="ti ti-send" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section id="about" aria-labelledby="about-heading">
+  <div class="about-inner">
+    <div class="about-text">
+      <h2 id="about-heading">A center of <span>innovation</span> and excellence</h2>
+      <p>University of Kabianga is a fully-fledged, ISO 9001:2015 certified public university located in the lush tea-growing highlands of Kericho County, Kenya. From humble roots as an agricultural training centre in 1925, UoK was awarded university charter in 2013 and now serves over 7,000 students.</p>
+      <p>With a motto of <em>"Innovation and Excellence"</em>, UoK combines rigorous academic training with hands-on research and community service across five schools and three campuses.</p>
+      <div class="about-links">
+        <a href="https://www.kabianga.ac.ke" target="_blank" rel="noopener"><i class="ti ti-world" aria-hidden="true"></i> kabianga.ac.ke</a>
+        <a href="https://www.kabianga.ac.ke/index.php/admissions" target="_blank" rel="noopener"><i class="ti ti-file-text" aria-hidden="true"></i> Admissions</a>
+        <a href="https://www.kabianga.ac.ke/index.php/research" target="_blank" rel="noopener"><i class="ti ti-flask" aria-hidden="true"></i> Research</a>
+      </div>
+    </div>
+    <div class="about-milestones" aria-label="University milestones">
+      <div class="milestone">
+        <div class="mile-year">1925</div>
+        <div class="mile-text"><strong>Founded as Government School</strong><span>Kabianga Agricultural Training Centre established</span></div>
+      </div>
+      <div class="milestone">
+        <div class="mile-year">2007</div>
+        <div class="mile-text"><strong>Moi University Campus</strong><span>Officially decreed a campus of Moi University</span></div>
+      </div>
+      <div class="milestone">
+        <div class="mile-year">2009</div>
+        <div class="mile-text"><strong>University College status</strong><span>Elevated by Kenya Gazette Legal Notice No. 77</span></div>
+      </div>
+      <div class="milestone">
+        <div class="mile-year">2013</div>
+        <div class="mile-text"><strong>Full University Charter</strong><span>Awarded charter by President Mwai Kibaki</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong style="color:rgba(255,255,255,0.75)">University of Kabianga Campus Navigator</strong><br>
+      Built with AI · Data sourced from <a href="https://www.kabianga.ac.ke" target="_blank" rel="noopener">kabianga.ac.ke</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.kabianga.ac.ke" target="_blank" rel="noopener">Official Website</a>
+      <a href="https://www.kabianga.ac.ke/index.php/admissions" target="_blank" rel="noopener">Admissions</a>
+      <a href="#ai-guide">AI Guide</a>
+      <a href="#navigator">Navigator</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
+
+<script>
+// ── Facility data ──
+const facilities = {
+  library: {
+    icon: '📚', name: 'University Library', cat: 'Academic Resource Centre',
+    desc: 'The UoK main library provides extensive academic resources including digital databases, e-journals, textbooks, and dedicated reading spaces. It supports research across all five schools and hosts both print and electronic collections.',
+    hours: 'Monday–Friday: 8:00 AM – 10:00 PM · Saturday: 9:00 AM – 5:00 PM · Closed on public holidays',
+    tags: ['Digital databases', 'Reference section', 'Study rooms', 'Wi-Fi enabled', 'E-journals']
+  },
+  admin: {
+    icon: '🏛️', name: 'Administration Block', cat: 'University Management',
+    desc: 'Houses the Vice-Chancellor\'s office, Deputy Vice-Chancellors, University Registrar, Finance department, and Student Affairs. This is where you go for official letters, transcripts, fee clearance, and academic matters.',
+    hours: 'Monday–Friday: 8:00 AM – 5:00 PM · Closed weekends and public holidays',
+    tags: ['VC Office', 'Registrar', 'Finance', 'Student Affairs', 'Academic Records']
+  },
+  lecture: {
+    icon: '🎓', name: 'Lecture Halls & Academic Blocks', cat: 'Teaching Facilities',
+    desc: 'Multiple academic blocks spread across the main campus house lecture halls, seminar rooms, tutorial rooms, and departmental offices. Each school has dedicated spaces for lectures and group sessions.',
+    hours: 'Monday–Saturday: 7:00 AM – 9:00 PM (during semester)',
+    tags: ['Block A', 'Block B', 'Seminar rooms', 'Tutorial rooms', 'Departmental offices']
+  },
+  ict: {
+    icon: '💻', name: 'ICT Centre & Computer Labs', cat: 'Technology & Computing',
+    desc: 'The ICT Centre provides computer lab access with high-speed internet, licensed software tools, and on-site technical support. Used for coursework, research, and e-learning. Students access the university\'s online portal and academic management system here.',
+    hours: 'Monday–Friday: 7:00 AM – 10:00 PM · Saturday: 8:00 AM – 6:00 PM',
+    tags: ['Computer labs', 'High-speed Wi-Fi', 'E-Learning portal', 'Tech support', 'Printing services']
+  },
+  agrilab: {
+    icon: '🌿', name: 'Agriculture & Biotechnology Lab', cat: 'Research & Practical Training',
+    desc: 'State-of-the-art laboratories and demonstration farms supporting the School of Agriculture & Biotechnology. Facilities include crop science plots, animal science units, and biotech labs for hands-on research and practical training.',
+    hours: 'Monday–Friday: 8:00 AM – 5:00 PM (supervised lab sessions)',
+    tags: ['Crop science plots', 'Animal science', 'Biotech lab', 'Greenhouses', 'Research farm']
+  },
+  clinic: {
+    icon: '🏥', name: 'University Health Clinic', cat: 'Student Health Services',
+    desc: 'The on-campus health clinic provides primary healthcare services to all registered students and staff. Medical and nursing staff are available during working hours. Students are encouraged to register with the clinic at the start of each academic year.',
+    hours: 'Monday–Friday: 8:00 AM – 5:00 PM · Emergency contacts available 24/7',
+    tags: ['Primary care', 'Student health', '24/7 emergency', 'Medical staff', 'Nursing care']
+  },
+  hostel: {
+    icon: '🏠', name: 'Student Hostels', cat: 'Accommodation',
+    desc: 'On-campus hostels offer affordable, secure accommodation for students. Hostels are gender-segregated with 24-hour security, reliable water supply, and common rooms. Off-campus housing is also available in nearby Kabianga town.',
+    hours: 'Residents: 24 hours · Visitors permitted: 8:00 AM – 8:00 PM',
+    tags: ['Male hostels', 'Female hostels', '24hr security', 'Common rooms', 'Water supply']
+  },
+  cafeteria: {
+    icon: '🍽️', name: 'University Cafeteria', cat: 'Dining & Catering',
+    desc: 'The main dining hall serves affordable, nutritious meals to students and staff throughout the day. A variety of Kenyan dishes are offered. Smaller kiosks and canteens around campus provide snacks, beverages, and light meals.',
+    hours: 'Monday–Sunday: 6:30 AM – 9:00 PM',
+    tags: ['Breakfast', 'Lunch', 'Dinner', 'Student prices', 'Campus kiosks']
+  },
+  sports: {
+    icon: '⚽', name: 'Sports Grounds & Gymnasium', cat: 'Sports & Recreation',
+    desc: 'UoK maintains a football pitch, basketball courts, volleyball courts, and an athletics track. The indoor gymnasium is open to all students. The university actively competes in Kenya Universities Sports Association (KUSA) events.',
+    hours: 'Monday–Saturday: 6:00 AM – 8:00 PM · Sunday: 7:00 AM – 6:00 PM',
+    tags: ['Football pitch', 'Basketball courts', 'Athletics track', 'Indoor gym', 'KUSA competitions']
+  },
+  chapel: {
+    icon: '⛪', name: 'University Chapel', cat: 'Spiritual Life',
+    desc: 'The university chapel serves as a space for spiritual reflection, prayer, and interdenominational worship services for students and staff of all faiths. Regular services and fellowships are held throughout the week.',
+    hours: 'Open daily · Services: check university notice boards for schedule',
+    tags: ['Interdenominational', 'Prayer services', 'Student fellowship', 'Quiet reflection']
+  },
+  farm: {
+    icon: '🍃', name: 'Kabianga Tea Farm', cat: 'Research & Heritage',
+    desc: 'The Kabianga Tea Farm is a historic feature of the UoK complex, forming part of the original Kabianga complex dating back to 1925. It provides a living laboratory for agriculture and environmental science students and connects the university to the region\'s tea heritage.',
+    hours: 'Open during daytime hours for academic visits',
+    tags: ['Tea cultivation', 'Agricultural research', 'Heritage site', 'Environmental studies', 'Field visits']
+  }
+};
+
+function showFacility(id) {
+  document.querySelectorAll('.map-node').forEach(n => n.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const f = facilities[id];
+  if (!f) return;
+  const panel = document.getElementById('detail-panel');
+  panel.innerHTML = `
+    <div class="detail-top">
+      <span class="detail-icon" aria-hidden="true">${f.icon}</span>
+      <div class="detail-name">${f.name}</div>
+      <div class="detail-cat">${f.cat}</div>
+    </div>
+    <div class="detail-body">
+      <p>${f.desc}</p>
+      <div class="detail-hours">
+        <i class="ti ti-clock" aria-hidden="true"></i>
+        <span>${f.hours}</span>
+      </div>
+      <div class="tag-row" role="list" aria-label="Features">
+        ${f.tags.map(t => `<span class="tag" role="listitem">${t}</span>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ── Campus tabs ──
+function switchCampus(id, btn) {
+  document.querySelectorAll('.ctab').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+  document.querySelectorAll('.campus-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+  document.getElementById('panel-' + id).classList.add('active');
+}
+
+// ── Mobile menu ──
+function toggleMenu() {
+  const m = document.getElementById('mobile-menu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+
+// ── AI Chat ──
+const chatHistory = [];
+
+async function sendMsg() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addMsg(text, 'msg-user');
+  chatHistory.push({ role: 'user', content: text });
+  const typing = addMsg('Typing…', 'msg-typing');
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: `You are an AI campus guide for the University of Kabianga (UoK) in Kericho, Kenya.
+
+Key facts:
+- Location: Kabianga complex, Kericho County, Kenya (0°26'45"S, 35°08'17"E)
+- Charter awarded: 1st March 2013 by President Mwai Kibaki
+- Motto: "Innovation and Excellence" | ISO 9001:2015 certified
+- ~7,000-8,000 students | ~195 staff
+- Vice-Chancellor: Prof. Eric Koech
+
+Schools (5):
+1. School of Agriculture & Biotechnology
+2. School of Science & Technology
+3. School of Business & Economics
+4. School of Education & Social Sciences
+5. School of Natural Resources & Environmental Management
+
+Campuses (3): Main Campus (Kabianga), Kapkatet Campus, Kericho Town Campus
+
+Facilities: Library, Administration Block, Lecture Halls (Blocks A & B), ICT Centre, Agriculture Lab, Health Clinic, Student Hostels, Cafeteria, Sports Grounds, Chapel, Tea Farm
+
+Admission requirements: KCSE certificate/results slip, national ID (2 copies), passport photo (4, blue background), admission letter
+
+Answer helpfully in 2-4 sentences. Be warm and friendly. Greet in Swahili occasionally (Habari, Karibu). Direct students to kabianga.ac.ke for the most current information on fees and specific deadlines.`,
+        messages: chatHistory
+      })
+    });
+
+    const data = await res.json();
+    const reply = (data.content || []).map(i => i.text || '').join('');
+    typing.remove();
+    addMsg(reply || 'Samahani, I could not get a response. Please try again.', 'msg-bot');
+    if (reply) chatHistory.push({ role: 'assistant', content: reply });
+  } catch (err) {
+    typing.remove();
+    addMsg('Samahani — something went wrong. Please check your connection and try again.', 'msg-bot');
+  }
+}
+
+function quickAsk(q) {
+  document.getElementById('chat-input').value = q;
+  sendMsg();
+}
+
+function addMsg(text, cls) {
+  const box = document.getElementById('chat-msgs');
+  const el = document.createElement('div');
+  el.className = 'msg ' + cls;
+  el.textContent = text;
+  box.appendChild(el);
+  box.scrollTop = box.scrollHeight;
+  return el;
+}
+
+// ── Smooth scroll nav highlight ──
+const sections = ['navigator','schools','campuses','ai-guide','about'];
+const navLinks = document.querySelectorAll('.nav-links a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.35 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+</script>
+</body>
+</html>
